@@ -21,20 +21,20 @@ public class R<E> implements Serializable {
         this.data = data;
     }
 
-    public R(Integer code, String msg) {
-        this.code = code;
-        this.msg = msg;
+    public R(Integer status, String message) {
+        this.status = status;
+        this.message = message;
     }
 
-    public R(Integer code, String msg, E data) {
-        this.code = code;
-        this.msg = msg;
+    public R(Integer status, String message, E data) {
+        this.status = status;
+        this.message = message;
         this.data = data;
     }
 
     public R(Throwable throwable) {
-        this.code = 失败;
-        this.msg = throwable.toString();
+        this.status = 失败;
+        this.message = throwable.toString();
     }
 
     public static R ok() {
@@ -65,12 +65,12 @@ public class R<E> implements Serializable {
     @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
     private E data;
 
-    private Integer code = 成功;
+    private Integer status = 成功;
 
-    private String msg = "操作成功";
+    private String message = "操作成功";
 
 
-    public static final int 成功 = 200;
+    public static final int 成功 = 0000;
 
     public static final int 失败 = 201;
 

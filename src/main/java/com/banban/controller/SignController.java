@@ -5,6 +5,7 @@ import com.banban.app.common.api.kaoqin.KaoqinApi;
 import com.banban.app.common.api.login.LoginApi;
 import com.banban.app.common.bean.CompanyUserInfo;
 import com.banban.app.common.bean.SignQuery;
+import com.banban.bean.R;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 签到/签退
  * Created by Vim 2019/4/17 16:10
  *
  * @author Vim
@@ -28,48 +30,39 @@ public class SignController {
      * 签到
      */
     @RequestMapping
-    public Object sign(String account, String password, Integer address) {
-
-        Map<String, Object> loginMap = (Map<String, Object>) this.login(account, password);
-
-        if (!StringUtils.equals((CharSequence) loginMap.get("status"), "0000")) {
-            return loginMap;
+    public Object sign(String companyId, Integer userId, Integer ruleId, String token, String location) {
+        if (StringUtils.isBlank(location) && !location.contains(",")) {
+            return R.fail("错误参数");
         }
 
-        SignQuery signQuery = new SignQuery();
-        signQuery.setCompanyId(this.companyId);
-        signQuery.setRuleId(1523);
-        signQuery.setUserId(this.userId);
-        setAddress(address, signQuery);
+        return R.ok();
+       /* SignQuery signQuery = new SignQuery();
+        signQuery.setCompanyId(companyId);
+        signQuery.setRuleId(ruleId);
+        signQuery.setUserId(userId);
+
+        String[] locationSplit = location.split(",");
+        signQuery.setLat(Float.valueOf(locationSplit[0]));
+        signQuery.setLng(Float.valueOf(locationSplit[1]));
+
         signQuery.setSignType(SignQuery.签到);
 
-        ResponseEntity<Map> sign = kaoqinApi.sign(this.token, this.orgId, signQuery);
-
-        return sign.getBody();
+        return kaoqinApi.sign(token, companyId, signQuery).getBody();*/
     }
 
     /**
      * 签退
      */
     @RequestMapping("out")
-    public Object signOut(String account, String password, Integer address) {
-
-        Map<String, Object> loginMap = (Map<String, Object>) this.login(account, password);
-
-        if (!StringUtils.equals((CharSequence) loginMap.get("status"), "0000")) {
-            return loginMap;
-        }
-
+    public Object signOut(String companyId, Integer userId, Integer ruleId, String token, Integer address) {
         SignQuery signQuery = new SignQuery();
-        signQuery.setCompanyId(this.companyId);
+        signQuery.setCompanyId(companyId);
         signQuery.setRuleId(1523);
-        signQuery.setUserId(this.userId);
+        signQuery.setUserId(userId);
         setAddress(address, signQuery);
         signQuery.setSignType(SignQuery.签退);
 
-        ResponseEntity<Map> sign = kaoqinApi.sign(this.token, this.orgId, signQuery);
-
-        return sign.getBody();
+        return kaoqinApi.sign(token, companyId, signQuery).getBody();
     }
 
     private void setAddress(Integer address, SignQuery signQuery) {

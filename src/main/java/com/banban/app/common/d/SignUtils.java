@@ -3,6 +3,7 @@
 //
 package com.banban.app.common.d;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.banban.app.common.bean.CommonParams;
@@ -139,6 +140,7 @@ public class SignUtils {
         requestData.put("commonParam", params);
         requestData.put("object", loginInfo);
 
+        //requestData = JSON.parseObject("{ \"commonParam\": { \"appKey\": \"bbl40c2n1uq5zcvcvz\", \"appVersion\": \"1.0.1\", \"channel\": null, \"longOrgId\": 1, \"orgId\": \"0b446420687fff4201689d831ca90013\", \"originatorId\": null, \"page\": 0, \"pagesize\": 5, \"sign\": \"669F838113C717A09E3ED2C58E5B44DA\", \"token\": \"76aaea3b4c86813f7d72b99e9b8d2f33\" }, \"object\": { \"companyId\": \"0b446420687fff4201689d831ca90013\", \"ruleId\": 1478, \"userId\": 121100 } }", Map.class);
 
         String sign = SignUtils.a(requestData, SIGN_TOKEN);
         params.setSign(sign);
