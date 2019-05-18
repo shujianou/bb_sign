@@ -31,12 +31,11 @@ public class SignController {
      */
     @RequestMapping
     public Object sign(String companyId, Integer userId, Integer ruleId, String token, String location) {
-        if (StringUtils.isBlank(location) && !location.contains(",")) {
+        if (StringUtils.isBlank(location) || !location.contains(",")) {
             return R.fail("错误参数");
         }
 
-        return R.ok();
-       /* SignQuery signQuery = new SignQuery();
+        SignQuery signQuery = new SignQuery();
         signQuery.setCompanyId(companyId);
         signQuery.setRuleId(ruleId);
         signQuery.setUserId(userId);
@@ -47,7 +46,8 @@ public class SignController {
 
         signQuery.setSignType(SignQuery.签到);
 
-        return kaoqinApi.sign(token, companyId, signQuery).getBody();*/
+        return kaoqinApi.sign(token, companyId, signQuery).getBody();
+
     }
 
     /**

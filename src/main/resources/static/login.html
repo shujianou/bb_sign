@@ -485,8 +485,8 @@
         font: 12px "Microsoft Yahei";
     }
 </style>
-<script src="js/lib/store.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
+<script src="/bb/js/lib/store.js"></script>
+<script type="text/javascript" src="/bb/js/common.js"></script>
 <script type="text/javascript">
     $(function () {
         $(':input').labelauty();
@@ -508,7 +508,7 @@
                     store.set('token',res.data.token);
                     store.set('companyUserInfo', res.data.companyUserInfo);
                     toastr.success(res.message);
-                    window.location.href='/index.html';
+                    window.location.href='/bb/index.html';
                 } else{
                     toastr.error(res.message);
                 }

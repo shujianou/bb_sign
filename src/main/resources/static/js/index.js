@@ -1,7 +1,7 @@
 $(function () {
     var token = store.get('token');
     if (token == null) {
-        window.location.href = '/login.html'
+        window.location.href = '/bb/login.html'
     }
     initInfo();
 });

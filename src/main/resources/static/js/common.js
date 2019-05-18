@@ -1,1 +1,1 @@
-var BASE_API='http://localhost:8071';
+var BASE_API='http://123.206.207.161/bb';
