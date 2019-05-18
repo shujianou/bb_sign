@@ -505,7 +505,7 @@
             },
             success:function (res) {
                 if (res.status=='0000'){
-                    store.set('token',res.data.token);
+                    store.set('bb-token',res.data.token);
                     store.set('companyUserInfo', res.data.companyUserInfo);
                     toastr.success(res.message);
                     window.location.href='/bb/index.html';

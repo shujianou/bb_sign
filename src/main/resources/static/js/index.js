@@ -1,5 +1,5 @@
 $(function () {
-    var token = store.get('token');
+    token = store.get('bb-token');
     if (token == null) {
         window.location.href = '/bb/login.html'
     }
@@ -12,7 +12,6 @@ var companyUserInfo;
  * 初始化信息
  */
 function initInfo() {
-    token = store.get('token');
     companyUserInfo = store.get('companyUserInfo');
 
     $('.user-name').html(companyUserInfo.userInfoOut.userName);

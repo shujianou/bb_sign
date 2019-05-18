@@ -54,12 +54,20 @@ public class SignController {
      * 签退
      */
     @RequestMapping("out")
-    public Object signOut(String companyId, Integer userId, Integer ruleId, String token, Integer address) {
+    public Object signOut(String companyId, Integer userId, Integer ruleId, String token, String location) {
+        if (StringUtils.isBlank(location) || !location.contains(",")) {
+            return R.fail("错误参数");
+        }
+
         SignQuery signQuery = new SignQuery();
         signQuery.setCompanyId(companyId);
-        signQuery.setRuleId(1523);
+        signQuery.setRuleId(ruleId);
         signQuery.setUserId(userId);
-        setAddress(address, signQuery);
+
+        String[] locationSplit = location.split(",");
+        signQuery.setLat(Float.valueOf(locationSplit[0]));
+        signQuery.setLng(Float.valueOf(locationSplit[1]));
+
         signQuery.setSignType(SignQuery.签退);
 
         return kaoqinApi.sign(token, companyId, signQuery).getBody();
